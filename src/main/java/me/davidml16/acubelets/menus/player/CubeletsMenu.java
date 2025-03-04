@@ -226,7 +226,7 @@ public class CubeletsMenu extends Menu {
 				ItemStack item = new ItemBuilder(type.getIcon()).setName(Utils.translate(type.getName()))
 						.setLore(lore)
 						.toItemStack();
-				item = NBTEditor.set(item, cubelet.getUuid().toString(), NBTEditor.CUSTOM_DATA, "cubeletUUID");
+				item = NBTEditor.set(item, cubelet.getUuid() == null ? "" : cubelet.getUuid().toString(), NBTEditor.CUSTOM_DATA, "cubeletUUID");
 				item = NBTEditor.set(item, type.getId(), NBTEditor.CUSTOM_DATA, "typeID");
 				int slot = getNextAvailableSlot();
 
@@ -329,7 +329,7 @@ public class CubeletsMenu extends Menu {
 
 						Optional<Cubelet> cubelet = profile.getCubelets()
 								.stream()
-								.filter(cbl -> cbl.getUuid().toString().equalsIgnoreCase(cubeletUUID))
+								.filter(cbl -> cbl != null && cbl.getUuid() != null && cbl.getUuid().toString().equalsIgnoreCase(cubeletUUID))
 								.findFirst();
 
 						if (cubelet.isPresent()) {
@@ -343,7 +343,7 @@ public class CubeletsMenu extends Menu {
 											.openAnimation(player, profile.getBoxOpened(), type, false);
 
 									profile.getCubelets()
-											.removeIf(cblt -> cblt.getUuid().toString().equals(cubeletUUID));
+											.removeIf(cblt -> cblt != null && cblt.getUuid() != null && cblt.getUuid().toString().equals(cubeletUUID));
 
 									getMain().getDatabaseHandler()
 											.removeCubelet(player.getUniqueId(), UUID.fromString(Objects.requireNonNull(cubeletUUID)));
@@ -360,7 +360,7 @@ public class CubeletsMenu extends Menu {
 
 					} else {
 
-						if (profile.getBoxOpened().getPlayerOpening().getUuid() == player.getUniqueId()) {
+						if (Objects.equals(profile.getBoxOpened().getPlayerOpening().getUuid(), player.getUniqueId())) {
 							if (!getMain().getLanguageHandler().isEmptyMessage("Cubelet.BoxInUse.Me"))
 								player.sendMessage(getMain().getLanguageHandler().getMessage("Cubelet.BoxInUse.Me"));
 						} else {
