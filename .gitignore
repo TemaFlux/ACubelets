@@ -3,3 +3,7 @@ out
 server
 .idea/
 *.iml
+
+build/
+
+.gradle/
