@@ -246,3 +246,13 @@ animations:
     NeedPermission: true
     Icon:
       material: BLACK_CONCRETE
+
+  animation_25:
+    Enabled: true
+    DisplayName: 'Animation 25'
+    OutlineParticles: true
+    FloorParticles: true
+    NeedPermission: true
+    ChangeBlocks: true
+    Icon:
+      material: JACK_O_LANTERN
