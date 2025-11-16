@@ -1,5 +1,5 @@
 name: ACubelets
-version: ${project.version}
+version: ${version}
 main: me.davidml16.acubelets.Main
 depend: [ ProtocolLib ]
 softdepend: [ PlaceholderAPI, Vault, Multiverse-Core, Hyperverse, HolographicDisplays, DecentHolograms ]

@@ -1,0 +1,68 @@
+plugins {
+    java
+    id("com.github.johnrengelman.shadow") version "8.1.1"
+}
+
+group = "me.davidml16"
+version = "2.5.0"
+description = "ACubelets"
+
+repositories {
+    maven("https://jitpack.io")
+    maven("https://repo.codemc.io/repository/maven-public/")
+    maven("https://repo.extendedclip.com/content/repositories/placeholderapi/")
+    maven("https://repo.dmulloy2.net/nexus/repository/public/")
+    maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
+    maven("https://libraries.minecraft.net/")
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+    compileOnly("org.spigotmc:spigot-api:1.20.4-R0.1-SNAPSHOT")
+    implementation("org.apache.commons:commons-lang3:3.12.0")
+    implementation("com.googlecode.json-simple:json-simple:1.1")
+    compileOnly("me.filoghost.holographicdisplays:holographicdisplays-api:3.0.0")
+    compileOnly("com.github.decentsoftware-eu:decentholograms:2.8.8")
+    implementation("com.zaxxer:HikariCP:4.0.0")
+    implementation("org.slf4j:slf4j-simple:2.0.3")
+    compileOnly("me.clip:placeholderapi:2.11.6")
+    compileOnly("net.dmulloy2:ProtocolLib:5.3.0")
+    compileOnly("com.github.MilkBowl:VaultAPI:1.7.1")
+    implementation("io.github.bananapuncher714:nbteditor:7.19.10.1")
+    implementation("io.github.skytasul:guardianbeam:2.3.6")
+    implementation("com.github.cryptomorin:XSeries:13.5.1")
+    implementation("org.jetbrains:annotations:24.0.1")
+    implementation("org.jsoup:jsoup:1.15.3")
+    compileOnly("com.mojang:authlib:3.13.56")
+    compileOnly("org.projectlombok:lombok:1.18.38")
+    annotationProcessor("org.projectlombok:lombok:1.18.38")
+}
+
+java {
+    toolchain.languageVersion.set(JavaLanguageVersion.of(17))
+    withSourcesJar()
+}
+
+tasks.compileJava {
+    options.encoding = "UTF-8"
+    options.release.set(17)
+}
+
+tasks {
+    processResources {
+        filteringCharset = "UTF-8"
+        filesMatching("**/*.yml") {
+            expand("version" to project.version)
+        }
+    }
+
+    shadowJar {
+        archiveClassifier.set("")
+        minimize()
+    }
+
+    build {
+        dependsOn(shadowJar)
+    }
+}
