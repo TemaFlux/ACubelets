@@ -68,7 +68,25 @@ public class CubeletRewardHandler {
 
                             ItemStack rewardIcon = null;
                             if (config.get("type.rewards." + rewardid + ".icon") instanceof MemorySection) {
-                                rewardIcon = XItemStack.deserialize(Utils.getConfigurationSection(config, "type.rewards." + rewardid + ".icon"));
+                                if (config.contains("type.rewards." + rewardid + ".icon.texture")) {
+                                    String[] iconTexture = config.getString("type.rewards." + rewardid + ".icon.texture").split(":");
+                                    switch (iconTexture[0].toLowerCase()) {
+                                        case "base64":
+                                            rewardIcon = SkullUtils.itemFromBase64(iconTexture[1]);
+                                            break;
+                                        case "uuid":
+                                            rewardIcon = SkullUtils.itemFromUUID(UUID.fromString(iconTexture[1]));
+                                            break;
+                                        case "name":
+                                            rewardIcon = SkullUtils.itemFromName(iconTexture[1]);
+                                            break;
+                                        default:
+                                            rewardIcon = XItemStack.deserialize(Utils.getConfigurationSection(config, "type.rewards." + rewardid + ".icon"));
+                                            break;
+                                    }
+                                } else {
+                                    rewardIcon = XItemStack.deserialize(Utils.getConfigurationSection(config, "type.rewards." + rewardid + ".icon"));
+                                }
                             } else {
                                 try {
                                     rewardIcon = ItemStack64.itemStackFromBase64(config.getString("type.rewards." + rewardid + ".icon"));

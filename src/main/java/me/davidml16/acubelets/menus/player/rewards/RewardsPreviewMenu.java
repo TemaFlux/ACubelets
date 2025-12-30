@@ -45,7 +45,7 @@ public class RewardsPreviewMenu extends Menu {
 			return;
 		}
 
-		Inventory gui = createInventory(getSize(), translateTitleVariables(guiLayout.getMessage("Title"), rewards.size()).replaceAll("%cubelet_type%", Utils.removeColors(cubeletType.getName())));
+		Inventory gui = createInventory(getSize(), translateTitleVariables(guiLayout.getMessage("Title"), rewards.size()).replaceAll("%cubelet_type%", Matcher.quoteReplacement(Utils.translate(cubeletType.getName()))));
 
 		if (rewards.size() > getPageSize())
 			rewards = rewards.subList(page * getPageSize(), Math.min(((page * getPageSize()) + getPageSize()), rewards.size()));

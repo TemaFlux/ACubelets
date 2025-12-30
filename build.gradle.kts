@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "me.davidml16"
-version = "2.5.0"
+version = "2.5.1"
 description = "ACubelets"
 
 repositories {
@@ -29,9 +29,9 @@ dependencies {
     compileOnly("me.clip:placeholderapi:2.11.6")
     compileOnly("net.dmulloy2:ProtocolLib:5.3.0")
     compileOnly("com.github.MilkBowl:VaultAPI:1.7.1")
-    implementation("io.github.bananapuncher714:nbteditor:7.19.10.1")
+    implementation("io.github.bananapuncher714:nbteditor:7.20.2")
     implementation("io.github.skytasul:guardianbeam:2.3.6")
-    implementation("com.github.cryptomorin:XSeries:13.5.1")
+    implementation("com.github.cryptomorin:XSeries:13.6.0")
     implementation("org.jetbrains:annotations:24.0.1")
     implementation("org.jsoup:jsoup:1.15.3")
     compileOnly("com.mojang:authlib:3.13.56")
